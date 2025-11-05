@@ -108,7 +108,7 @@ Essas adições são críticas para mercados emergentes onde responsabilidade so
 
 ```
 ┌─────────────┐      ┌─────────────┐      ┌─────────────┐      ┌─────────────┐
-│  Strategy   │ ───▶ │  Structure  │ ───▶ │   Systems   │ ───▶ │   Staff     │
+│  Strategy   │ ───▶│  Structure  │ ───▶ │   Systems   │ ───▶│   Staff     │
 │             │      │             │      │             │      │             │
 │ Produto EU  │      │ Duplo       │      │ Plataformas │      │ Rotatividade│
 │ p/ mercado  │      │ reporte     │      │ incompatí-  │      │ 24.7%       │
@@ -353,28 +353,25 @@ Análise desenvolvida como parte de processo seletivo, demonstrando:
 
 ---
 
-## 📞 Contato
-
-<div align="center">
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](seu-linkedin)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:seu-email)
-[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=About.me&logoColor=white)](seu-portfolio)
-
-</div>
-
----
-
 ## 📄 Licença
 
 Este projeto é um estudo de caso acadêmico para fins de avaliação profissional.
 
 ---
 
-<div align="center">
+<!-- Início da seção "Contato" -->
+<h2>🌐 Contate-me: </h2>
+<div>
+  <p>Developed by <b>Fábio Nogueira</b></p>
+</div>
+<p>
+<a href="https://www.linkedin.com/in/faanogueira/" target="_blank"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=13930&format=png&color=000000" target="_blank" width="80"></a>
+<a href="https://github.com/faanogueira" target="_blank"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=AZOZNnY73haj&format=png&color=000000" target="_blank" width="80"></a>
+<a href="https://api.whatsapp.com/send?phone=5571983937557" target="_blank"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=16713&format=png&color=000000" target="_blank" width="80"></a>
+<a href="mailto:faanogueira@gmail.com"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=P7UIlhbpWzZm&format=png&color=000000" target="_blank" width="80"></a> 
+</p>
+<!-- Fim da seção "Contato" -->
 
 **⭐ Se este trabalho foi útil, considere dar uma estrela no repositório!**
-
-Made with 💙 for strategic excellence
 
 </div>
