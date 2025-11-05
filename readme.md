@@ -370,7 +370,3 @@ Este portfólio é mantido para fins educacionais e de demonstração de capacid
 
 </div>
 
-
-⭐ Se este trabalho foi útil ou inspirador, considere dar uma estrela no repositório!
-
-</div>
