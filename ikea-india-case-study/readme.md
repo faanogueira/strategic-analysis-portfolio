@@ -8,7 +8,7 @@
 
 **Uma análise profunda dos desafios de alinhamento organizacional da IKEA em sua entrada no mercado indiano**
 
-[📊 Ver Análise](ikea-india-case-study/analysis/full-analysis-pt.md) • [🎯 Metodologia da Matriz 9S](ikea-india-case-study/analysis/methodology_file.md) • [💡 Recomendações Estratégicas](ikea-india-case-study/analysis/framework_breakdown.md)
+[📊 Ver Análise](/ikea-india-case-study/analysis/full-analysis-pt.md) • [🎯 Metodologia da Matriz 9S](/ikea-india-case-study/analysis/methodology_file.md) • [💡 Recomendações Estratégicas](/ikea-india-case-study/analysis/framework_breakdown.md)
 
 </div>
 
