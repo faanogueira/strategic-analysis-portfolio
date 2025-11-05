@@ -8,7 +8,7 @@
 
 **Demonstrando capacidade analítica através de casos reais de negócio**
 
-[📊 Ver Projetos](#-projetos) • [💼 Sobre](#-sobre) • [📬 Contato](#-contato)
+[📊 Ver Projetos](#-projetos) • [💼 Sobre](#-sobre) 
 
 </div>
 
