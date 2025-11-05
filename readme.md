@@ -345,21 +345,6 @@ graph LR
 
 ---
 
-## 📬 Contato
-
-<div align="center">
-
-Interessado em discutir análises estratégicas ou oportunidades profissionais?
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](seu-linkedin)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:seu-email@exemplo.com)
-[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=About.me&logoColor=white)](seu-portfolio)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/seu-username)
-
-</div>
-
----
-
 ## 📄 Licença
 
 Este portfólio é mantido para fins educacionais e de demonstração de capacidades analíticas. Os casos estudados combinam informações públicas com elementos simulados para permitir análise profunda.
@@ -368,23 +353,23 @@ Este portfólio é mantido para fins educacionais e de demonstração de capacid
 
 ---
 
-## ⭐ Reconhecimentos
+<!-- Início da seção "Contato" -->
+<h2>🌐 Contate-me: </h2>
+<div>
+  <p>Developed by <b>Fábio Nogueira</b></p>
+</div>
+<p>
+<a href="https://www.linkedin.com/in/faanogueira/" target="_blank"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=13930&format=png&color=000000" target="_blank" width="80"></a>
+<a href="https://github.com/faanogueira" target="_blank"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=AZOZNnY73haj&format=png&color=000000" target="_blank" width="80"></a>
+<a href="https://api.whatsapp.com/send?phone=5571983937557" target="_blank"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=16713&format=png&color=000000" target="_blank" width="80"></a>
+<a href="mailto:faanogueira@gmail.com"><img style="padding-right: 10px;" src="https://img.icons8.com/?size=100&id=P7UIlhbpWzZm&format=png&color=000000" target="_blank" width="80"></a> 
+</p>
+<!-- Fim da seção "Contato" -->
 
-Agradeço aos autores dos frameworks e metodologias utilizados:
-- McKinsey & Company (7-S Framework)
-- Giuseppe Marzo (extensão 9S)
-- Michael Porter (Five Forces, Value Chain)
-- E todos os acadêmicos e practitioners que contribuem para o campo de estratégia
+**⭐ Se este trabalho foi útil, considere dar uma estrela no repositório!**
 
----
+</div>
 
-<div align="center">
-
-**💡 "Análise profunda. Insights acionáveis. Transformação real."**
-
-Made with 💙 for strategic excellence
-
----
 
 ⭐ Se este trabalho foi útil ou inspirador, considere dar uma estrela no repositório!
 
