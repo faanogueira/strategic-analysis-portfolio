@@ -19,11 +19,6 @@ def main():
 
     df = carregar_dados()
 
-    # debug para você conferir a estrutura
-    with st.expander("Prévia dos dados"):
-        st.write("Colunas do dataframe:", list(df.columns))
-        st.dataframe(df.head())
-
     # 1. detectar automaticamente as colunas principais
     # data: procura por qualquer coluna que tenha "data" no nome
     data_candidates = [c for c in df.columns if "data" in c]
@@ -245,3 +240,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
