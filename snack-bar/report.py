@@ -19,65 +19,65 @@ def main():
 
     df = carregar_dados()
 
-    # 1. detectar automaticamente as colunas principais
-    # data: procura por qualquer coluna que tenha "data" no nome
-    data_candidates = [c for c in df.columns if "data" in c]
-    if not data_candidates:
-        st.error("Não encontrei nenhuma coluna de data (com 'data' no nome). Ajuste a planilha.")
-        st.stop()
-    data_col = data_candidates[0]
+    # prévia para conferência
+    with st.expander("Prévia dos dados"):
+        st.write("Colunas do dataframe:", list(df.columns))
+        st.dataframe(df.head())
 
-    # valor: escolhe uma coluna numérica, priorizando nomes comuns
+    # 1. detectar automaticamente as colunas principais
+
+    # coluna de data: qualquer coluna que contenha "data" no nome
+    data_cols = [c for c in df.columns if "data" in c]
+    if not data_cols:
+        st.error("Não encontrei nenhuma coluna de data (nome contendo 'data').")
+        return
+    col_data = data_cols[0]
+
+    # coluna de valor: alguma coluna numérica
     num_cols = df.select_dtypes(include="number").columns.tolist()
     if not num_cols:
         st.error("Não encontrei nenhuma coluna numérica para usar como valor de venda.")
-        st.stop()
+        return
 
-    preferred_value_names = ["valor", "total", "receita", "faturamento"]
-    value_col = None
-    for name in preferred_value_names:
-        if name in df.columns:
-            value_col = name
+    preferidas_valor = ["valor", "total", "receita", "faturamento"]
+    col_valor = None
+    for nome in preferidas_valor:
+        if nome in df.columns:
+            col_valor = nome
             break
-    if value_col is None:
-        value_col = num_cols[0]
+    if col_valor is None:
+        col_valor = num_cols[0]
 
-    # produto: escolhe uma coluna categórica, priorizando nomes comuns
+    # coluna de produto (opcional): alguma coluna de texto que não seja a data
     cat_cols = df.select_dtypes(exclude="number").columns.tolist()
-    if not cat_cols:
-        st.error("Não encontrei nenhuma coluna categórica para usar como produto.")
-        st.stop()
+    cat_cols = [c for c in cat_cols if c != col_data]
 
-    preferred_prod_names = ["produto", "produto_nome", "item", "descricao", "sabor"]
-    product_col = None
-    for name in preferred_prod_names:
-        if name in df.columns:
-            product_col = name
+    preferidas_prod = ["produto", "produto_nome", "item", "descricao", "sabor"]
+    col_produto = None
+    for nome in preferidas_prod:
+        if nome in cat_cols:
+            col_produto = nome
             break
-    if product_col is None:
-        # evita usar a coluna de data como produto
-        cat_cols_sem_data = [c for c in cat_cols if c != data_col]
-        if not cat_cols_sem_data:
-            st.error("Só encontrei coluna de data como texto, não há outra coluna categórica.")
-            st.stop()
-        product_col = cat_cols_sem_data[0]
+    if col_produto is None and cat_cols:
+        col_produto = cat_cols[0]
 
     st.info(
-        f"Usando colunas: data = '{data_col}', valor = '{value_col}', produto = '{product_col}'."
+        f"Usando colunas: data = '{col_data}', valor = '{col_valor}'"
+        + (f", produto = '{col_produto}'" if col_produto else " (sem coluna de produto)")
     )
 
     # 2. preparar dados de tempo
-    df[data_col] = pd.to_datetime(df[data_col], dayfirst=True, errors="coerce")
-    df = df.dropna(subset=[data_col])
+    df[col_data] = pd.to_datetime(df[col_data], dayfirst=True, errors="coerce")
+    df = df.dropna(subset=[col_data])
 
-    df["ano_mes"] = df[data_col].dt.to_period("M").dt.to_timestamp()
-    df["dia"] = df[data_col].dt.date
+    df["ano_mes"] = df[col_data].dt.to_period("M").dt.to_timestamp()
+    df["dia"] = df[col_data].dt.date
 
     # 3. Vendas mensais e média
     st.subheader("Vendas mensais e média")
 
     mensal = (
-        df.groupby("ano_mes")[value_col]
+        df.groupby("ano_mes")[col_valor]
         .sum()
         .reset_index(name="total_mensal")
     )
@@ -118,33 +118,35 @@ def main():
 
     st.altair_chart(chart_mensal, use_container_width=True)
 
-    # 5. Top 10 produtos vendidos
+    # 5. Top 10 produtos vendidos (só se tiver coluna categórica)
     st.subheader("Top 10 produtos vendidos")
-
-    top_produtos = (
-        df.groupby(product_col)[value_col]
-        .sum()
-        .nlargest(10)
-        .reset_index(name="total_vendido")
-    )
-
-    chart_top = (
-        alt.Chart(top_produtos)
-        .mark_bar()
-        .encode(
-            x="total_vendido:Q",
-            y=alt.Y(product_col + ":N", sort="-x"),
-            tooltip=[product_col + ":N", "total_vendido:Q"]
+    if col_produto:
+        top_produtos = (
+            df.groupby(col_produto)[col_valor]
+            .sum()
+            .nlargest(10)
+            .reset_index(name="total_vendido")
         )
-    )
 
-    st.altair_chart(chart_top, use_container_width=True)
+        chart_top = (
+            alt.Chart(top_produtos)
+            .mark_bar()
+            .encode(
+                x="total_vendido:Q",
+                y=alt.Y(col_produto + ":N", sort="-x"),
+                tooltip=[col_produto + ":N", "total_vendido:Q"]
+            )
+        )
+
+        st.altair_chart(chart_top, use_container_width=True)
+    else:
+        st.info("Não há coluna categórica para calcular o Top 10 de produtos. Gráfico omitido.")
 
     # 6. Vendas diárias
     st.subheader("Vendas diárias")
 
     diario = (
-        df.groupby("dia")[value_col]
+        df.groupby("dia")[col_valor]
         .sum()
         .reset_index(name="total_diario")
     )
@@ -240,4 +242,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
