@@ -1,61 +1,72 @@
 import streamlit as st
 import pandas as pd
-import time
+import io
 
-url_csv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSQO339x3asoCz7WUA4bxRD7Oj85mJr2pv_VSyDVjUyfXpe5fTcNhaL7mqq-ZF30GBiz894cs3Kcd4Y/pub?gid=971678561&single=true&output=csv'
-df = pd.read_csv(url_csv)
-df.head()
+# 1. Importação do CSV hospedado no Google Sheets
+@st.cache_data
+def carregar_dados():
+    url_csv = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSQO339x3asoCz7WUA4bxRD7Oj85mJr2pv_VSyDVjUyfXpe5fTcNhaL7mqq-ZF30GBiz894cs3Kcd4Y/pub?gid=971678561&single=true&output=csv"
+    df = pd.read_csv(url_csv)
+    return df
 
 def main():
-    st.title("Métricas Empada")
-    st.write("Acompanhe os resultados em tempo real")
-    
-    st. header("Input de Texto")
-    input_text = st.text_area("Digite seu texto aqui:", height=150)
-    if input_text:
-        st.write("Você digitou: ", input_text)
-    
-    st.header("Seleção")
-    setected_option = st.selectbox("Escolha uma opção:", ["Opção 1", "Opção 2", "Opção 3"])
-    if setected_option:
-        st.write("Você selecionou: ", setected_option)
-    
-    st.header("Slider")
-    slider_value = st.slider("Selecione um valor:", 0, 100, 50)
-    st.write("Valor selecionado: ", slider_value)
-    
-    st.header("Checkbox")
-    checkbox_value = st.checkbox("Marque para confirmar")
-    st.write("Checkbox está: ", checkbox_value)
-    
-    st.header(Botão)
-    if st.button("Clique aqui"):
-        st.write("Botão clicado!")
-    
-    st.header("Loading")
-    with st.spinner("Carregando..."):
-        time.sleep(3)
-    st.success("Carregamento concluído!")
-    
-    st.header("Upload de Arquivo")
-    uploaded_file = st.file_uploader("Escolha um arquivo", type=["pdf", "csv", "xlsx"])
-    if uploaded_file:
-        st.write("Arquivo carregado: ", uploaded_file.name)
-    
-    st.header("Gráfico")
-    data = {
-        'Categoria': ['A', 'B', 'C', 'D'],
-        'Valores': [23, 45, 12, 36]
-    }
-    st.line_chart(data={'Categoria': data['Categoria'], 'Valores': data['Valores']})
-        
-    if st.button("Start Progress"):
-        progress_bar = st.progress(0)
-        status_text = st.empty()
+    st.title("Dashboard de Vendas Empada")
+    st.write("Painel de métricas, filtros e exportação de dados")
 
-        for percent_complete in range(101):
-            time.sleep(0.05)  # Simulate a task taking time
-            progress_bar.progress(percent_complete)
-            status_text.text(f"Progress: {percent_complete}%")
+    # 2. Carregar dados
+    df = carregar_dados()
 
-        status_text.text("Task Completed!")
+    st.subheader("Prévia dos dados")
+    st.dataframe(df)
+
+    # 3. Filtros
+    st.subheader("Filtros")
+    col1, col2 = st.columns(2)
+
+    produto = col1.selectbox("Selecione o produto", ["Todos"] + sorted(df["produto"].unique()))
+    meio_pg = col2.selectbox("Meio de pagamento", ["Todos"] + sorted(df["meio_pagamento"].unique()))
+
+    df_filtrado = df.copy()
+
+    if produto != "Todos":
+        df_filtrado = df_filtrado[df_filtrado["produto"] == produto]
+
+    if meio_pg != "Todos":
+        df_filtrado = df_filtrado[df_filtrado["meio_pagamento"] == meio_pg]
+
+    st.subheader("Dados filtrados")
+    st.dataframe(df_filtrado)
+
+    # 4. Estatísticas simples
+    st.subheader("Estatísticas")
+    total_vendido = df_filtrado["valor"].sum()
+    qtd_itens = len(df_filtrado)
+
+    st.metric("Valor total filtrado", f"R$ {total_vendido:.2f}")
+    st.metric("Quantidade de itens", qtd_itens)
+
+    # 5. Gráfico
+    st.subheader("Vendas por produto")
+    graf = df.groupby("produto")["valor"].sum()
+    st.bar_chart(graf)
+
+    # 6. Exportar os dados filtrados
+    st.subheader("Exportar dados filtrados")
+
+    def gerar_csv(df_export):
+        buffer = io.StringIO()
+        df_export.to_csv(buffer, index=False, sep=";")
+        return buffer.getvalue()
+
+    nome_arquivo = "dados_filtrados.csv"
+    csv_export = gerar_csv(df_filtrado)
+
+    st.download_button(
+        label="Baixar CSV",
+        data=csv_export,
+        file_name=nome_arquivo,
+        mime="text/csv"
+    )
+
+if __name__ == "__main__":
+    main()
