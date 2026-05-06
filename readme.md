@@ -1,6 +1,10 @@
 # 🎯 Strategic Analysis Portfolio
 
 <div align="center">
+  <img src="cover.png" width="100%" alt="Capa do Projeto">
+</div>
+
+<div align="center">
 
 ![Portfolio](https://img.shields.io/badge/Portfolio-Strategic%20Analysis-0051BA?style=for-the-badge)
 ![Projects](https://img.shields.io/badge/Projects-Active-success?style=for-the-badge)
